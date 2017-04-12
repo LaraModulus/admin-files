@@ -1,10 +1,10 @@
 <?php
-namespace Escapeboy\AdminFiles\Controllers;
+namespace LaraMod\AdminFiles\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\User;
 use Carbon\Carbon;
-use Escapeboy\AdminFiles\Models\Files;
+use LaraMod\AdminFiles\Models\Files;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 
