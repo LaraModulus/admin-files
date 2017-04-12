@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'prefix' => 'admin/files',
     'middleware' => ['web', 'auth'],
-    'namespace' => 'Escapeboy\AdminFiles\Controllers',
+    'namespace' => 'LaraMod\AdminFiles\Controllers',
 ], function () {
     Route::get('/', ['as' => 'admin.files', 'uses' => 'FilesController@index']);
 

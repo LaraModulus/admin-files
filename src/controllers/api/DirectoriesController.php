@@ -1,9 +1,9 @@
 <?php
-namespace Escapeboy\AdminFiles\Controllers\Api;
+namespace LaraMod\AdminFiles\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Escapeboy\AdminFiles\Models\Directories;
-use Escapeboy\AdminFiles\Models\Files;
+use LaraMod\AdminFiles\Models\Directories;
+use LaraMod\AdminFiles\Models\Files;
 use Illuminate\Http\Request;
 
 class DirectoriesController extends Controller
