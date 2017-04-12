@@ -1,0 +1,16 @@
+{
+    "name": "LaraMod/admin-files",
+    "description": "LaraMod Admin Files manager",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nikola Katsarov",
+            "email": "katsarov@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "intervention/image": "2.3.*"
+    }
+}

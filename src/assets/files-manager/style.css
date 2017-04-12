@@ -1,0 +1,28 @@
+.image-block {
+    position: relative;
+    width:100px;
+    margin-left:auto;
+    margin-right:auto;
+    float: none;
+}
+.editor-block {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width:100%;
+}
+.item {
+    background-color: transparent;
+    border: 1px solid transparent;
+}
+.item.selected {
+    border: 1px solid #ccc;
+    background-color: #c0c0c0;
+}
+.item .help-block {
+    max-width: 100px;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 14px;
+}
