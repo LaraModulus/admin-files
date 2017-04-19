@@ -90,7 +90,7 @@
     </div><!-- /.modal -->
 </div>
 @section('css')
-    <link href="{{asset('assets/escapeboy/dashboard/files-manager/style.css')}}" rel="stylesheet">
-    <script src="{{asset('assets/escapeboy/dashboard/bower_components/angular-ui-uploader/dist/uploader.min.js')}}"></script>
-    <script src="{{asset('assets/escapeboy/dashboard/files-manager/manager.app.js')}}"></script>
+    <link href="{{asset('assets/laramod/dashboard/files-manager/style.css')}}" rel="stylesheet">
+    <script src="{{asset('assets/laramod/dashboard/bower_components/angular-ui-uploader/dist/uploader.min.js')}}"></script>
+    <script src="{{asset('assets/laramod/dashboard/files-manager/manager.app.js')}}"></script>
 @stop
