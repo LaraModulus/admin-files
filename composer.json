@@ -11,6 +11,13 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "intervention/image": "2.3.*"
+      "php" : ">=5.3.0",
+      "illuminate/support": "~5.2",
+      "intervention/image": "2.3.*"
+    },
+    "autoload": {
+      "psr-4": {
+        "LaraMod\\AdminFiles\\": "src/"
+      }
     }
 }
