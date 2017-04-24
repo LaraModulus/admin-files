@@ -38,6 +38,10 @@ class FilesController extends Controller
         }
         try {
             if ($request->hasFile('file')) {
+
+                if(in_array(request()->file('file')->getClientOriginalExtension(), ['php'])){
+                    throw new \Exception("File not allowed", 1);
+                }
                 if (request()->file('file')->move($path, request()->file('file')->getClientOriginalName())) {
                     $file->filename = $request->file('file')->getClientOriginalName();
                 }

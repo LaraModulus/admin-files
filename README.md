@@ -14,8 +14,15 @@ composer require LaraMod\admin-files
 'providers' => [
     ...
     LaraMod\AdminFiles\AdminFilesServiceProvider::class,
+    Intervention\Image\ImageServiceProvider::class,
+],
+
+'aliases' => [
+    ...
+    'Image' => Intervention\Image\Facades\Image::class,
 ]
 ```
+
 **Publish migrations**
 ```
 php artisan vendor:publish --tag="migrations"
