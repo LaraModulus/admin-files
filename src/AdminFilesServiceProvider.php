@@ -2,7 +2,6 @@
 
 namespace LaraMod\Admin\Files;
 
-use Faker\Provider\Image;
 use Illuminate\Support\ServiceProvider;
 
 class AdminFilesServiceProvider extends ServiceProvider
