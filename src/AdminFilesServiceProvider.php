@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraMod\AdminFiles;
+namespace LaraMod\Admin\Files;
 
 use Faker\Provider\Image;
 use Illuminate\Support\ServiceProvider;
@@ -16,7 +16,7 @@ class AdminFilesServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__.'/views', 'adminfiles');
         $this->publishes([
-            __DIR__.'/views' => base_path('resources/views/laramod/admin-files'),
+            __DIR__.'/views' => base_path('resources/views/laramod/admin/files'),
         ]);
         $this->publishes([
             __DIR__.'/assets' => public_path('assets/laramod/dashboard'),

@@ -1,9 +1,9 @@
 <?php
-namespace LaraMod\AdminFiles\Controllers\Api;
+namespace LaraMod\Admin\Files\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use LaraMod\AdminFiles\Models\Directories;
-use LaraMod\AdminFiles\Models\Files;
+use LaraMod\Admin\Files\Models\Directories;
+use LaraMod\Admin\Files\Models\Files;
 use Illuminate\Http\Request;
 
 class DirectoriesController extends Controller

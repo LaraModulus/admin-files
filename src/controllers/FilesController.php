@@ -1,12 +1,9 @@
 <?php
-namespace LaraMod\AdminFiles\Controllers;
+namespace LaraMod\Admin\Files\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\User;
-use Carbon\Carbon;
-use LaraMod\AdminFiles\Models\Files;
+use LaraMod\Admin\Files\Models\Files;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 
 class FilesController extends Controller
 {

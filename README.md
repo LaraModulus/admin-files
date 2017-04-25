@@ -13,7 +13,7 @@ composer require laramod\admin-files
 ```php 
 'providers' => [
     ...
-    LaraMod\AdminFiles\AdminFilesServiceProvider::class,
+    LaraMod\Admin\Files\AdminFilesServiceProvider::class,
     Intervention\Image\ImageServiceProvider::class,
 ],
 
