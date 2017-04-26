@@ -3,7 +3,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group([
     'prefix' => 'admin/files',
-    'middleware' => ['web', 'auth'],
+    'middleware' => ['admin', 'auth.admin'],
     'namespace' => 'LaraMod\Admin\Files\Controllers',
 ], function () {
     Route::get('/', ['as' => 'admin.files', 'uses' => 'FilesController@index']);
@@ -12,7 +12,7 @@ Route::group([
 
     Route::group([
         'prefix' => 'api',
-        'middleware' => 'auth',
+        'middleware' => 'auth.admin',
         'namespace' => 'Api'
     ], function(){
        Route::get('directories', ['as' => 'admin.api.directories', 'uses' => 'DirectoriesController@index']);
