@@ -28,13 +28,10 @@ class FilesController extends Controller
     public function postForm(Request $request)
     {
 
-        $file = $request->has('id') ? Files::find($request->get('id')) : new Files();
+        $file = Files::firstOrCreate(['id' => $request->get('id')]);
         try{
-            foreach(config('app.locales', [config('app.fallback_locale', 'en')]) as $locale){
-                $file->{'title_'.$locale} = $request->get('title_'.$locale);
-            }
-            $file->viewable = $request->get('visible', 0);
-            $file->save();
+            $file->update($request->only($file->getFillable()));
+
         }catch (\Exception $e){
             return redirect()->back()->withInput()->withErrors(['errors' => $e->getMessage()]);
         }

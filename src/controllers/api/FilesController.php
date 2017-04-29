@@ -28,7 +28,7 @@ class FilesController extends Controller
     public function postForm(Request $request)
     {
 
-        $file = $request->has('id') ? Files::find($request->get('id')) : new Files();
+        $file = Files::firstOrCreate(['id' => $request->get('id')]);
         $path = public_path('uploads');
         if ($request->has('directories_id')) {
             $directory = Directories::find($request->get('directories_id'));

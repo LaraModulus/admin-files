@@ -43,13 +43,9 @@ class DirectoriesController extends Controller
     public function postForm(Request $request)
     {
 
-        $directory = $request->has('id') ? Directories::find($request->get('id')) : new Directories();
+        $directory = Directories::firstOrCreate(['id' => $request->get('id')]);
         try {
-            if ($request->has('id')) {
-                $directory->update($request->only($directory->getFillable()));
-            } else {
-                $directory = $directory->create($request->only($directory->getFillable()));
-            }
+            $directory->update($request->only($directory->getFillable()));
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 500);
         }

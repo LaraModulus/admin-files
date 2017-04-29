@@ -28,6 +28,27 @@ class Files extends Model
     ];
     protected $dates = ['deleted_at'];
 
+    protected $fillable = [
+        'directories_id',
+        'filename',
+        'extension',
+        'mime_type',
+        'author',
+        'exif_data',
+        'viewable',
+    ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        foreach (config('app.locales', [config('app.fallback_locale', 'en')]) as $locale) {
+            $this->fillable = array_merge($this->fillable, [
+                'title_' . $locale,
+                'description_' . $locale,
+            ]);
+        }
+    }
+
     public function scopeVisible($q)
     {
         return $q->whereViewable(true);
