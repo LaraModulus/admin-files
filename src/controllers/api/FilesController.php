@@ -1,4 +1,5 @@
 <?php
+
 namespace LaraMod\Admin\Files\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -13,15 +14,17 @@ class FilesController extends Controller
     public function index(Request $request)
     {
         $files = new Files();
-        if($request->has('directory')){
+        if ($request->has('directory')) {
             return $files->where('directories_id', $request->get('directory'))->get();
         }
+
         return response()->json($files->get());
     }
 
     public function getForm(Request $request)
     {
         $file = ($request->has('id') ? Files::find($request->get('id')) : new Files());
+
         return response()->json($file);
     }
 
@@ -39,7 +42,7 @@ class FilesController extends Controller
         try {
             if ($request->hasFile('file')) {
 
-                if(in_array(request()->file('file')->getClientOriginalExtension(), ['php'])){
+                if (in_array(request()->file('file')->getClientOriginalExtension(), ['php'])) {
                     throw new \Exception("File not allowed", 1);
                 }
                 if (request()->file('file')->move($path, request()->file('file')->getClientOriginalName())) {
@@ -50,19 +53,20 @@ class FilesController extends Controller
             /**
              * If request to move file is passed - move the file and change the path
              */
-            if($file->id && $request->has('directories_id')){
-                if($file->directory->id != $request->get('directories_id')){
-                    rename($file->directory->full_path.'/'.$file->filename, Directories::find($request->get('directories_id'))->full_path.'/'.$file->filename);
+            if ($file->id && $request->has('directories_id')) {
+                if ($file->directory->id != $request->get('directories_id')) {
+                    rename($file->directory->full_path . '/' . $file->filename,
+                        Directories::find($request->get('directories_id'))->full_path . '/' . $file->filename);
                     $file->directories_id = $request->get('directories_id');
                     $path = $file->directory->path;
                 }
             }
-            if(!$file->id){
+            if (!$file->id) {
                 $file->extension = pathinfo($file->filename, PATHINFO_EXTENSION);
                 $file->mime_type = mime_content_type($path . '/' . $file->filename);
-                try{
+                try {
                     $file->exif_data = exif_read_data($path . '/' . $file->filename);
-                }catch (\Exception $e){
+                } catch (\Exception $e) {
                     $file->exif_data = [];
                 }
             }

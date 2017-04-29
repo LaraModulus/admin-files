@@ -1,4 +1,5 @@
 <?php
+
 namespace LaraMod\Admin\Files\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -11,32 +12,37 @@ class DirectoriesController extends Controller
 
     public function index()
     {
-        function get_children($dir){
+        function get_children($dir)
+        {
             $data = [];
-            foreach($dir->children as $child){
+            foreach ($dir->children as $child) {
                 $d = $child;
-                if($child->children){
+                if ($child->children) {
                     $d->children = get_children($child);
                 }
                 $data[] = $d;
             }
+
             return $data;
         }
+
         $data = [];
-        foreach(Directories::where('directories_id', 0)->get() as $dir){
+        foreach (Directories::where('directories_id', 0)->get() as $dir) {
             $d = $dir;
-            if($d->children){
+            if ($d->children) {
                 $d->children = get_children($dir);
             }
             $data[] = $dir;
 
         }
+
         return response()->json($data);
     }
 
     public function getForm(Request $request)
     {
         $directory = ($request->has('id') ? Directories::find($request->get('id')) : new Directories());
+
         return response()->json($directory);
     }
 
@@ -70,23 +76,23 @@ class DirectoriesController extends Controller
         $path = public_path('uploads');
 
 
-        if(!Directories::wherePath('uploads')->count()){
+        if (!Directories::wherePath('uploads')->count()) {
             Directories::create([
-                'path' => 'uploads',
-                'directories_id' => 0
+                'path'           => 'uploads',
+                'directories_id' => 0,
             ]);
         }
         function parse_directory($path)
         {
-            $items = glob($path.'/*');
+            $items = glob($path . '/*');
             foreach ($items as $item) {
-                if(is_dir($item)){
+                if (is_dir($item)) {
                     $parent = Directories::wherePath(basename(dirname($item)))->first();
                     if (!Directories::wherePath(basename($item))->where('directories_id', $parent->id)->count()) {
                         add_directory(realpath($item));
                     }
                     parse_directory(realpath($item));
-                }else{
+                } else {
                     $directory = Directories::wherePath(basename(dirname($item)))->first();
                     if (!Files::whereFilename(basename($item))->where('directories_id', $directory->id)->count()) {
                         add_file(realpath($item));
@@ -99,8 +105,8 @@ class DirectoriesController extends Controller
         {
             $parent = Directories::wherePath(basename(dirname($path)))->first();
             Directories::create([
-                'path' => basename($path),
-                'directories_id' => $parent ? $parent->id : 0
+                'path'           => basename($path),
+                'directories_id' => $parent ? $parent->id : 0,
             ]);
 
         }
@@ -110,30 +116,31 @@ class DirectoriesController extends Controller
             $directory = Directories::wherePath(basename(dirname($path)))->first();
             try {
                 $exif_data = \exif_read_data($path);
-            }catch (\Exception $e){
+            } catch (\Exception $e) {
                 $exif_data = null;
             }
             Files::create([
-                'filename' => basename($path),
+                'filename'       => basename($path),
                 'directories_id' => $directory->id,
-                'extension' => pathinfo($path, PATHINFO_EXTENSION),
-                'mime_type' => mime_content_type($path),
-                'exif_data' => $exif_data,
-                'visible' => true,
+                'extension'      => pathinfo($path, PATHINFO_EXTENSION),
+                'mime_type'      => mime_content_type($path),
+                'exif_data'      => $exif_data,
+                'visible'        => true,
             ]);
         }
 
         try {
             parse_directory($path);
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return response()->json([
-                'type' => 'danger',
-                'message' => $e->getMessage()
+                'type'    => 'danger',
+                'message' => $e->getMessage(),
             ], 500);
         }
+
         return response()->json([
-            'type' => 'success',
-            'message' => 'Folders synced'
+            'type'    => 'success',
+            'message' => 'Folders synced',
         ], 200);
     }
 

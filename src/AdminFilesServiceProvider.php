@@ -13,15 +13,15 @@ class AdminFilesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__.'/views', 'adminfiles');
+        $this->loadViewsFrom(__DIR__ . '/views', 'adminfiles');
         $this->publishes([
-            __DIR__.'/views' => base_path('resources/views/laramod/admin/files'),
+            __DIR__ . '/views' => base_path('resources/views/laramod/admin/files'),
         ]);
         $this->publishes([
-            __DIR__.'/assets' => public_path('assets/laramod/dashboard'),
+            __DIR__ . '/assets' => public_path('assets/laramod/dashboard'),
         ], 'public');
         $this->publishes([
-            __DIR__.'/../database/migrations/' => database_path('migrations')
+            __DIR__ . '/../database/migrations/' => database_path('migrations'),
         ], 'migrations');
 
 
@@ -34,6 +34,6 @@ class AdminFilesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        include __DIR__.'/routes.php';
+        include __DIR__ . '/routes.php';
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace LaraMod\Admin\Files\Models;
 
 use LaraMod\Admin\Core\Scopes\AdminCoreOrderByCreatedAtScope;
@@ -16,15 +17,15 @@ class Files extends Model
     protected $guarded = ['id'];
 
     protected $casts = [
-        'viewable' => 'boolean',
-        'exif_data' => 'object'
+        'viewable'  => 'boolean',
+        'exif_data' => 'object',
     ];
 
     protected $appends = [
         'full_path',
         'real_path',
         'file_size',
-        'thumb'
+        'thumb',
     ];
     protected $dates = ['deleted_at'];
 
@@ -54,30 +55,36 @@ class Files extends Model
         return $q->whereViewable(true);
     }
 
-    public function directory(){
+    public function directory()
+    {
         return $this->hasOne(Directories::class, 'id', 'directories_id');
     }
 
-    public function getFullPathAttribute(){
-        return $this->directory->full_path.(PHP_OS == 'WINNT' ? '\\' : '/').$this->filename;
+    public function getFullPathAttribute()
+    {
+        return $this->directory->full_path . (PHP_OS == 'WINNT' ? '\\' : '/') . $this->filename;
     }
 
-    public function getRealPathAttribute(){
+    public function getRealPathAttribute()
+    {
         return realpath(public_path($this->full_path));
     }
 
-    public function getFileSizeAttribute(){
+    public function getFileSizeAttribute()
+    {
         return filesize($this->real_path);
     }
 
-    public function getThumbAttribute(){
-        if(in_array($this->mime_type, ['image/jpg', 'image/jpeg', 'image/png', 'image/gif', 'image/tif', 'image/bmp'])){
-            return Cache::remember('image_'.$this->id, 60*24*30, function(){
+    public function getThumbAttribute()
+    {
+        if (in_array($this->mime_type,
+            ['image/jpg', 'image/jpeg', 'image/png', 'image/gif', 'image/tif', 'image/bmp'])) {
+            return Cache::remember('image_' . $this->id, 60 * 24 * 30, function () {
                 return Image::make($this->full_path)->fit(100, 100)->encode('data-url');
             });
-        }else{
-            return Cache::remember('image_'.$this->id, 60*24*30, function(){
-                return Image::canvas(100,100)->text(strtoupper($this->extension),50,50,function($font){
+        } else {
+            return Cache::remember('image_' . $this->id, 60 * 24 * 30, function () {
+                return Image::canvas(100, 100)->text(strtoupper($this->extension), 50, 50, function ($font) {
                     $font->file(2);
                     $font->size(100);
                     $font->color('#000000');
@@ -93,7 +100,6 @@ class Files extends Model
         parent::boot();
         static::addGlobalScope(new AdminCoreOrderByCreatedAtScope());
     }
-
 
 
 }

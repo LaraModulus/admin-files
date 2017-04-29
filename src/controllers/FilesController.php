@@ -1,4 +1,5 @@
 <?php
+
 namespace LaraMod\Admin\Files\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -9,6 +10,7 @@ class FilesController extends Controller
 {
 
     private $data = [];
+
     public function __construct()
     {
         config()->set('admincore.menu.files.active', true);
@@ -22,6 +24,7 @@ class FilesController extends Controller
     public function getForm(Request $request)
     {
         $this->data['file'] = ($request->has('id') ? Files::find($request->get('id')) : new Files());
+
         return view('adminblog::categories.form', $this->data);
     }
 
@@ -29,44 +32,49 @@ class FilesController extends Controller
     {
 
         $file = Files::firstOrCreate(['id' => $request->get('id')]);
-        try{
+        try {
             $file->update($request->only($file->getFillable()));
 
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return redirect()->back()->withInput()->withErrors(['errors' => $e->getMessage()]);
         }
 
         return redirect()->route('admin.files')->with('message', [
             'type' => 'success',
-            'text' => 'File saved.'
+            'text' => 'File saved.',
         ]);
     }
 
-    public function delete(Request $request){
-        if(!$request->has('id')){
+    public function delete(Request $request)
+    {
+        if (!$request->has('id')) {
             return redirect()->route('admin.files')->with('message', [
                 'type' => 'danger',
-                'text' => 'No ID provided!'
+                'text' => 'No ID provided!',
             ]);
         }
         try {
             Files::find($request->get('id'))->delete();
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return redirect()->route('admin.files')->with('message', [
                 'type' => 'danger',
-                'text' => $e->getMessage()
+                'text' => $e->getMessage(),
             ]);
         }
 
         return redirect()->route('admin.files')->with('message', [
             'type' => 'success',
-            'text' => 'File moved to trash.'
+            'text' => 'File moved to trash.',
         ]);
     }
 
-    public function downloadFile(Request $request){
+    public function downloadFile(Request $request)
+    {
         $file = Files::find($request->get('file'));
-        if(!$file) abort(404, 'File not found');
+        if (!$file) {
+            abort(404, 'File not found');
+        }
+
         return response()->download($file->fullPath, $file->filename);
     }
 
