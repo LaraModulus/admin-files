@@ -33,7 +33,9 @@ class FilesController extends Controller
 
         $file = Files::firstOrCreate(['id' => $request->get('id')]);
         try {
-            $file->update($request->only($file->getFillable()));
+            $file->update(array_filter($request->only($file->getFillable()), function($key) use ($request, $file){
+                return in_array($key, array_keys($request->all())) || @$file->getCasts()[$key]=='boolean';
+            }, ARRAY_FILTER_USE_KEY));
 
         } catch (\Exception $e) {
             return redirect()->back()->withInput()->withErrors(['errors' => $e->getMessage()]);

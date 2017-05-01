@@ -51,7 +51,9 @@ class DirectoriesController extends Controller
 
         $directory = Directories::firstOrCreate(['id' => $request->get('id')]);
         try {
-            $directory->update($request->only($directory->getFillable()));
+            $directory->update(array_filter($request->only($directory->getFillable()), function($key) use ($request, $directory){
+                return in_array($key, array_keys($request->all())) || @$directory->getCasts()[$key]=='boolean';
+            }, ARRAY_FILTER_USE_KEY));
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
