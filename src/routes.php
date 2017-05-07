@@ -16,6 +16,8 @@ Route::group([
         'namespace'  => 'Api',
     ], function () {
         Route::get('directories', ['as' => 'admin.api.directories', 'uses' => 'DirectoriesController@index']);
+        Route::post('directories', ['as' => 'admin.api.directories', 'uses' => 'DirectoriesController@postForm']);
+
         Route::group(['prefix' => 'files'], function () {
             Route::get('/', ['as' => 'admin.api.files', 'uses' => 'FilesController@index']);
             Route::post('/', ['as' => 'admin.api.files', 'uses' => 'FilesController@postForm']);

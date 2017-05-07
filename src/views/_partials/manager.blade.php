@@ -6,7 +6,7 @@
                     aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus"></i> New
             </button>
             <ul class="dropdown-menu">
-                <li><a href="javascript:;"><i class="fa fa-folder"></i> New folder</a></li>
+                <li><a href="#folderModal" data-toggle="modal"><i class="fa fa-folder"></i> New folder</a></li>
                 <li><a href="javascript:;"><i class="fa fa-file"></i> New file</a></li>
             </ul>
         </div>
@@ -100,6 +100,25 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-success">Save changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="modal fade" id="folderModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Create/Edit Directory</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" name="folderName" id="folderName" class="form-control" data-ng-model="editFolderName" title="Create/Edit Folder">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-ng-click="saveFolder()">Save</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

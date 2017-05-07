@@ -48,8 +48,18 @@ class DirectoriesController extends Controller
 
     public function postForm(Request $request)
     {
-
-        $directory = Directories::firstOrCreate(['id' => $request->get('id')]);
+        if(!$request->has('id') && $request->has('parent_id')){
+            $parent = Directories::find($request->get('parent_id'));
+            if($parent){
+                mkdir($parent->path.'/'.$request->get('name'));
+                Directories::create([
+                    'path' => $request->get('name'),
+                    'directories_id' => $parent->id
+                ]);
+            }
+            return self::index();
+        }
+        $directory = Directories::find(['id' => $request->get('id')]);
         try {
             $directory->update(array_filter($request->only($directory->getFillable()), function($key) use ($request, $directory){
                 return in_array($key, array_keys($request->all())) || @$directory->getCasts()[$key]=='boolean';
