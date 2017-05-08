@@ -51,7 +51,7 @@ class DirectoriesController extends Controller
         if(!$request->has('id') && $request->has('parent_id')){
             $parent = Directories::find($request->get('parent_id'));
             if($parent){
-                mkdir($parent->path.'/'.$request->get('name'));
+                mkdir($parent->real_path.'/'.$request->get('name'));
                 Directories::create([
                     'path' => $request->get('name'),
                     'directories_id' => $parent->id

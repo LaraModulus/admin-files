@@ -7,7 +7,7 @@
             </button>
             <ul class="dropdown-menu">
                 <li><a href="#folderModal" data-toggle="modal"><i class="fa fa-folder"></i> New folder</a></li>
-                <li><a href="javascript:;"><i class="fa fa-file"></i> New file</a></li>
+                {{--<li><a href="javascript:;"><i class="fa fa-file"></i> New file</a></li>--}}
             </ul>
         </div>
         <div class="btn-group pull-left" role="group" aria-label="Menu">
@@ -16,13 +16,13 @@
                 <i class="fa fa-upload"></i> Upload <input type="file" name="file" multiple id="file_upload"
                                                            style="display: none;">
             </label>
-            <button type="button" class="btn btn-sm btn-default" data-ng-class="{'disabled': Files.selected.length!==1}"
-                    data-ng-disabled="Files.selected.length!==1" data-ng-click="downloadSelectedFile()"><i
+            <button type="button" class="btn btn-sm btn-default" data-ng-class="{'disabled': user_files.selected.length!==1}"
+                    data-ng-disabled="user_files.selected.length!==1" data-ng-click="downloadSelectedFile()"><i
                         class="fa fa-download"></i> Download
             </button>
-            <button type="button" class="btn btn-sm btn-default" data-ng-class="{'disabled': Files.selected.length!==1}"
-                    data-ng-disabled="Files.selected.length!==1"><i class="fa fa-pencil-square-o"></i> Edit
-            </button>
+            {{--<button type="button" class="btn btn-sm btn-default" data-ng-class="{'disabled': user_files.selected.length!==1}"--}}
+                    {{--data-ng-disabled="user_files.selected.length!==1"><i class="fa fa-pencil-square-o"></i> Edit--}}
+            {{--</button>--}}
         </div>
         <div class="col-xs-5">
             <input type="search" class="form-control input-sm" placeholder="Filter" name="filter" id="files-filter">

@@ -71,7 +71,7 @@ app.controller('filesController', function($scope, $http, SweetAlert, uiUploader
             });
     };
     $scope.downloadSelectedFile = function(){
-        $window.open('/admin/files/download?file='+$scope.selected_files.id, '_blank');
+        $window.open('/admin/files/download?file='+$scope.user_files.selected[0].id, '_blank');
     };
     $scope.selectFile = function(idx, event){
         if(event.ctrlKey){
