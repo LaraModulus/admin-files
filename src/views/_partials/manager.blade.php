@@ -47,7 +47,7 @@
                          style="margin-top: 20px;border-bottom-color: antiquewhite;border-bottom-style: double;">
                         <div><span>@{{file.name}}</span>
                             <div style="float:right;"><span>@{{file.humanSize}}</span><a
-                                        data-ng-click="removeFile(file)" title="Remove from list to be uploaded"><i
+                                        data-ng-click="removeFile(file)" title="Remove from upload"><i
                                             class="icon-remove"></i></a></div>
                         </div>
                         <progress style="width:100%;" value="@{{file.loaded}}" max="@{{file.size}}"></progress>
