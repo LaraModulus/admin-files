@@ -1,4 +1,5 @@
 <?php
+
 namespace LaraMod\Admin\Files\Models;
 
 use LaraMod\Admin\Core\Scopes\AdminCoreOrderByCreatedAtScope;
@@ -16,33 +17,39 @@ class Directories extends Model
     protected $casts = [
     ];
     protected $appends = [
-      'full_path',
+        'full_path',
         'real_path',
     ];
 
-    public function parent(){
+    public function parent()
+    {
         return $this->hasOne(Directories::class, 'id', 'directories_id');
     }
 
-    public function files(){
+    public function files()
+    {
         return $this->hasMany(Files::class, 'directories_id', 'id');
     }
 
-    public function children(){
+    public function children()
+    {
         return $this->hasMany(Directories::class, 'directories_id', 'id');
     }
 
-    public function getFullPathAttribute(){
+    public function getFullPathAttribute()
+    {
         $path = new Collection();
         $category = $this;
         $path->prepend($this->path);
-        while($category = $category->parent){
+        while ($category = $category->parent) {
             $path->prepend($category->path);
         }
+
         return $path->implode(PHP_OS == 'WINNT' ? '\\' : '/');
     }
 
-    public function getRealPathAttribute(){
+    public function getRealPathAttribute()
+    {
         return realpath(public_path($this->full_path));
     }
 

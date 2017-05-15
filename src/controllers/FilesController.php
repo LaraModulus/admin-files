@@ -1,4 +1,5 @@
 <?php
+
 namespace LaraMod\Admin\Files\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -9,6 +10,7 @@ class FilesController extends Controller
 {
 
     private $data = [];
+
     public function __construct()
     {
         config()->set('admincore.menu.files.active', true);
@@ -22,54 +24,59 @@ class FilesController extends Controller
     public function getForm(Request $request)
     {
         $this->data['file'] = ($request->has('id') ? Files::find($request->get('id')) : new Files());
+
         return view('adminblog::categories.form', $this->data);
     }
 
     public function postForm(Request $request)
     {
 
-        $file = $request->has('id') ? Files::find($request->get('id')) : new Files();
-        try{
-            foreach(config('app.locales', [config('app.fallback_locale', 'en')]) as $locale){
-                $file->{'title_'.$locale} = $request->get('title_'.$locale);
-            }
-            $file->viewable = $request->get('visible', 0);
-            $file->save();
-        }catch (\Exception $e){
+        $file = Files::firstOrCreate(['id' => $request->get('id')]);
+        try {
+            $file->update(array_filter($request->only($file->getFillable()), function($key) use ($request, $file){
+                return in_array($key, array_keys($request->all())) || @$file->getCasts()[$key]=='boolean';
+            }, ARRAY_FILTER_USE_KEY));
+
+        } catch (\Exception $e) {
             return redirect()->back()->withInput()->withErrors(['errors' => $e->getMessage()]);
         }
 
         return redirect()->route('admin.files')->with('message', [
             'type' => 'success',
-            'text' => 'File saved.'
+            'text' => 'File saved.',
         ]);
     }
 
-    public function delete(Request $request){
-        if(!$request->has('id')){
+    public function delete(Request $request)
+    {
+        if (!$request->has('id')) {
             return redirect()->route('admin.files')->with('message', [
                 'type' => 'danger',
-                'text' => 'No ID provided!'
+                'text' => 'No ID provided!',
             ]);
         }
         try {
             Files::find($request->get('id'))->delete();
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return redirect()->route('admin.files')->with('message', [
                 'type' => 'danger',
-                'text' => $e->getMessage()
+                'text' => $e->getMessage(),
             ]);
         }
 
         return redirect()->route('admin.files')->with('message', [
             'type' => 'success',
-            'text' => 'File moved to trash.'
+            'text' => 'File moved to trash.',
         ]);
     }
 
-    public function downloadFile(Request $request){
+    public function downloadFile(Request $request)
+    {
         $file = Files::find($request->get('file'));
-        if(!$file) abort(404, 'File not found');
+        if (!$file) {
+            abort(404, 'File not found');
+        }
+
         return response()->download($file->fullPath, $file->filename);
     }
 

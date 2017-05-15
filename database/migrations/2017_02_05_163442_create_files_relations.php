@@ -16,9 +16,9 @@ class CreateFilesRelations extends Migration
             $table->integer('files_id')->unsigned();
             $table->integer('relation_id')->unsigned();
             $table->string('relation_type', 255);
-            foreach(config('app.locales', [config('app.fallback_locale', 'en')]) as $locale){
-                $table->string('title_'.$locale, 255)->nullable();
-                $table->text('description_'.$locale)->nullable();
+            foreach (config('app.locales', [config('app.fallback_locale', 'en')]) as $locale) {
+                $table->string('title_' . $locale, 255)->nullable();
+                $table->text('description_' . $locale)->nullable();
             }
         });
     }

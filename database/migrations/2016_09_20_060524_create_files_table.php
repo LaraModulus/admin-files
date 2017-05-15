@@ -23,9 +23,9 @@ class CreateFilesTable extends Migration
             $table->string('author', 255)->nullable();
             $table->text('exif_data')->nullable();
             $table->boolean('viewable')->default(1)->index();
-            foreach(config('app.locales', [config('app.fallback_locale', 'en')]) as $locale){
-                $table->string('title_'.$locale, 255)->nullable();
-                $table->text('description_'.$locale)->nullable();
+            foreach (config('app.locales', [config('app.fallback_locale', 'en')]) as $locale) {
+                $table->string('title_' . $locale, 255)->nullable();
+                $table->text('description_' . $locale)->nullable();
             }
         });
     }

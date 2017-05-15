@@ -27,9 +27,11 @@ app.controller('filesController', function($scope, $http, SweetAlert, uiUploader
     $scope.files_loading = false;
     $scope.files_for_upload = [];
 
+
     $http.get('/admin/files/api/directories')
         .then(function (response) {
             $scope.directories = response.data;
+            $scope.selected_directory = $scope.directories[0];
             $scope.treeHtml = $scope.generateDirectoriesTree();
             $('body').on('click', '[data-ng-bind-html="treeHtml"] a', function(){
                 var dir_id = $(this).attr('href').substr(1);
@@ -69,7 +71,7 @@ app.controller('filesController', function($scope, $http, SweetAlert, uiUploader
             });
     };
     $scope.downloadSelectedFile = function(){
-        $window.open('/admin/files/download?file='+$scope.selected_files.id, '_blank');
+        $window.open('/admin/files/download?file='+$scope.user_files.selected[0].id, '_blank');
     };
     $scope.selectFile = function(idx, event){
         if(event.ctrlKey){
@@ -191,6 +193,22 @@ app.controller('filesController', function($scope, $http, SweetAlert, uiUploader
                 });
             }
         });
+    };
+
+    $scope.editFolderName = '';
+    $scope.saveFolder = function(){
+        if($scope.editFolderName.length){
+            $http({
+                url: '/admin/files/api/directories/',
+                method: 'POST',
+                data: {
+                    name: $scope.editFolderName,
+                    parent_id: $scope.selected_directory.id
+                }
+            }).then(function () {
+                $scope.reloadStructure();
+            });
+        }
     };
     $scope.clearFiles = function(){
         uiUploader.removeAll();
