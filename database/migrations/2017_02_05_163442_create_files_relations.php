@@ -30,6 +30,6 @@ class CreateFilesRelations extends Migration
      */
     public function down()
     {
-        Schema::drop('files_relations');
+        Schema::dropIfExists('files_relations');
     }
 }
