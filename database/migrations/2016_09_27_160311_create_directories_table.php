@@ -27,6 +27,6 @@ class CreateDirectoriesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('directories');
+        Schema::dropIfExists('directories');
     }
 }
