@@ -20,6 +20,7 @@ class CreateFilesRelations extends Migration
                 $table->string('title_' . $locale, 255)->nullable();
                 $table->text('description_' . $locale)->nullable();
             }
+            $table->smallInteger('pos')->default(0)->index();
         });
     }
 

@@ -1,4 +1,4 @@
-var app = angular.module('App', ['ui.bootstrap', 'ngSanitize', 'oitozero.ngSweetAlert', 'ui.uploader']);
+var app = angular.module('App', ['ui.bootstrap', 'ngSanitize', 'oitozero.ngSweetAlert', 'ui.uploader', 'ui.sortable']);
 app.filter('bytes', function() {
     return function(bytes, precision) {
         if (isNaN(parseFloat(bytes)) || !isFinite(bytes)) return '-';
