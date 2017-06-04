@@ -61,9 +61,7 @@ class DirectoriesController extends Controller
         }
         $directory = Directories::find(['id' => $request->get('id')]);
         try {
-            $directory->update(array_filter($request->only($directory->getFillable()), function($key) use ($request, $directory){
-                return in_array($key, array_keys($request->all())) || @$directory->getCasts()[$key]=='boolean';
-            }, ARRAY_FILTER_USE_KEY));
+            $directory->autoFill($request);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 500);
         }

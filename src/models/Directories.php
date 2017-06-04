@@ -5,6 +5,7 @@ namespace LaraMod\Admin\Files\Models;
 use LaraMod\Admin\Core\Scopes\AdminCoreOrderByCreatedAtScope;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use LaraMod\Admin\Core\Traits\HelpersTrait;
 
 class Directories extends Model
 {
@@ -13,6 +14,8 @@ class Directories extends Model
 
     protected $guarded = ['id'];
     protected $fillable = ['path', 'directories_id'];
+
+    use HelpersTrait;
 
     protected $casts = [
     ];

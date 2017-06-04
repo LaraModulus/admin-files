@@ -7,13 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Cache;
 use Intervention\Image\Facades\Image;
+use LaraMod\Admin\Core\Traits\HelpersTrait;
 
 class Files extends Model
 {
     public $timestamps = true;
     protected $table = 'files';
 
-    use SoftDeletes;
+    use SoftDeletes, HelpersTrait;
     protected $guarded = ['id'];
 
     protected $casts = [
