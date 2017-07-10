@@ -8,7 +8,7 @@ https://github.com/LaraModulus
 Installation
 ---------------
 ```
-composer require laramod\admin-files
+composer require laramod/admin-files
 ```
  **config/app.php**
  

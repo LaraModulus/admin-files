@@ -31,7 +31,7 @@ class FilesController extends Controller
     public function postForm(Request $request)
     {
 
-        $file = Files::firstOrCreate(['id' => $request->get('id')]);
+        $file = Files::firstOrNew(['id' => $request->get('id')]);
         try {
             $file->autoFill($request);
 
