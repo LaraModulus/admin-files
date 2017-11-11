@@ -203,7 +203,7 @@ app.controller('filesController', function($scope, $http, SweetAlert, uiUploader
                 method: 'POST',
                 data: {
                     name: $scope.editFolderName,
-                    parent_id: $scope.selected_directory.id
+                    parent_id: $scope.selected_directory ? $scope.selected_directory.id : 0
                 }
             }).then(function () {
                 $scope.reloadStructure();
