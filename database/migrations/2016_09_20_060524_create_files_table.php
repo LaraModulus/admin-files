@@ -27,6 +27,11 @@ class CreateFilesTable extends Migration
                 $table->string('title_' . $locale, 255)->nullable();
                 $table->text('description_' . $locale)->nullable();
             }
+            $table->integer('size', false, true)->nullable();
+            $table->integer('width', false, true)->nullable();
+            $table->integer('height', false, true)->nullable();
+            $table->string('original_name')->nullable();
+            $table->string('image_hash', 100)->nullable();
         });
     }
 

@@ -38,6 +38,11 @@ class Files extends Model
         'author',
         'exif_data',
         'viewable',
+        'size',
+        'width',
+        'height',
+        'original_name',
+        'image_hash',
     ];
 
     public function __construct(array $attributes = [])
